@@ -32,7 +32,7 @@ class TestAddContact(unittest.TestCase):
         self.create_contact(wd, Contact(firstname="", lastname="", company="",
                                         address="", home_phone="", mobile_phone="",
                                         work_phone="", email="", homepage="",
-                                        bday="", bmonth="", byear=""))
+                                        bday="10", bmonth="April", byear="1990"))
         self.return_home_page(wd)
         self.logout(wd)
 
@@ -67,14 +67,13 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        if contact.firstname != "" and contact.lastname != "":
-            wd.find_element_by_name("bday").click()
-            Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-            wd.find_element_by_name("bmonth").click()
-            Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-            wd.find_element_by_name("byear").click()
-            wd.find_element_by_name("byear").clear()
-            wd.find_element_by_name("byear").send_keys(contact.byear)
+        wd.find_element_by_name("bday").click()
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
+        wd.find_element_by_name("bmonth").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(contact.byear)
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
 
