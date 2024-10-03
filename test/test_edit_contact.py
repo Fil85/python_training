@@ -2,7 +2,7 @@
 from model.contact import Contact
 
 
-def test_add_group(app):
+def test_edit_contact(app):
     app.session.login(username="admin", password="secret")
     app.contact.edit(Contact(firstname="Dima", lastname="Filimonov", company="Dom",
                                address="Ryazan", home_phone="001", mobile_phone="002",
