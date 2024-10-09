@@ -44,7 +44,6 @@ class ContactHelper:
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
-            print(field_name)
             if field_name != "bday" and field_name != "bmonth":
                 wd.find_element_by_name(field_name).click()
                 wd.find_element_by_name(field_name).clear()
@@ -59,7 +58,8 @@ class ContactHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("") and len(wd.find_elements_by_id("MassCB")) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def start_make_contact(self):
         wd = self.app.wd
