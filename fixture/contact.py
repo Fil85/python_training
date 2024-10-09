@@ -24,26 +24,34 @@ class ContactHelper:
         self.return_home_page()
 
     def input_data(self, contact):
-        # fill contact form
         self.change_field_value("firstname", contact.firstname)
         self.change_field_value("lastname", contact.lastname)
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.address)
-        self.change_field_value("home_phone", contact.home_phone)
-        self.change_field_value("mobile_phone", contact.mobile_phone)
-        self.change_field_value("work_phone", contact.work_phone)
+        self.change_field_value("home", contact.home_phone)
+        self.change_field_value("mobile", contact.mobile_phone)
+        self.change_field_value("work", contact.work_phone)
         self.change_field_value("email", contact.email)
         self.change_field_value("homepage", contact.homepage)
         self.change_field_value("bday", contact.bday)
         self.change_field_value("bmonth", contact.bmonth)
         self.change_field_value("byear", contact.byear)
 
+        #wd.find_element_by_name("bday").click()
+        #Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
+
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
-            wd.find_element_by_name(field_name).click()
-            wd.find_element_by_name(field_name).clear()
-            wd.find_element_by_name(field_name).send_keys(text)
+            print(field_name)
+            if field_name != "bday" and field_name != "bmonth":
+                wd.find_element_by_name(field_name).click()
+                wd.find_element_by_name(field_name).clear()
+                wd.find_element_by_name(field_name).send_keys(text)
+            elif field_name == "bday" or field_name == "bmonth":
+                wd.find_element_by_name(field_name).click()
+                Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
 
     def return_home_page(self):
         wd = self.app.wd
