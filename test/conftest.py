@@ -1,8 +1,8 @@
 import pytest
 from fixture.application import Application
 
-
 fixture = None
+
 
 @pytest.fixture
 def app(request):
@@ -21,5 +21,6 @@ def stop(request):
     def fin():
         fixture.session.ensure_logout()
         fixture.destroy()
+
     request.addfinalizer(fin)
     return fixture
