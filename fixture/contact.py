@@ -37,10 +37,6 @@ class ContactHelper:
         self.change_field_value("bmonth", contact.bmonth)
         self.change_field_value("byear", contact.byear)
 
-        #wd.find_element_by_name("bday").click()
-        #Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-
-
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -58,7 +54,7 @@ class ContactHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("") and len(wd.find_elements_by_id("MassCB")) > 0):
+        if not (len(wd.find_elements_by_id("MassCB")) > 0):
             wd.find_element_by_link_text("home").click()
 
     def start_make_contact(self):
