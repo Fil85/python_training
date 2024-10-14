@@ -8,7 +8,7 @@ def test_edit_contact(app):
                       work_phone="003", email="dima@mail.ru", homepage="dima.ru",
                       bday="3", bmonth="October", byear="2020")
     if app.contact.count() == 0:
-        app.contact.create(contact)
+        app.contact.create(Contact(firstname="John"))
     old_contacts = app.contact.get_contact_list()
     contact.id = old_contacts[0].id
     app.contact.edit_first_contact(contact)

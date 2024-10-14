@@ -3,9 +3,9 @@ from model.group import Group
 
 
 def test_edit_group_name(app):
-    group = Group(name="New group")
     if app.group.count() == 0:
-        app.group.create(group)
+        app.group.create(Group(name="test"))
+    group = Group(name="New group")
     old_groups = app.group.get_group_list()
     group.id = old_groups[0].id
     app.group.edit_first_group(group)
@@ -16,9 +16,9 @@ def test_edit_group_name(app):
 
 
 def test_edit_group_header(app):
-    group = Group(header="New neader")
     if app.group.count() == 0:
-        app.group.create(group)
+        app.group.create(header="test")
+    group = Group(header="New neader")
     old_groups = app.group.get_group_list()
     group.id = old_groups[0].id
     app.group.edit_first_group(group)
