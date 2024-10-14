@@ -15,6 +15,7 @@ class ContactHelper:
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
         self.return_home_page()
+        self.contact_cache = None
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -23,6 +24,7 @@ class ContactHelper:
         self.input_data(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_home_page()
+        self.contact_cache = None
 
     def input_data(self, contact):
         self.change_field_value("firstname", contact.firstname)
@@ -73,21 +75,25 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        i = 2
-        for element in wd.find_elements_by_name("entry"):
-            lastname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[2]").text
-            firstname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[3]").text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            i += 1
-            contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contact_cache = []
+            i = 2
+            for element in wd.find_elements_by_name("entry"):
+                lastname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[2]").text
+                firstname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[3]").text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                i += 1
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)
