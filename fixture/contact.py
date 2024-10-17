@@ -99,8 +99,8 @@ class ContactHelper:
             self.contact_cache = []
             i = 2
             for element in wd.find_elements_by_name("entry"):
-                lastname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[2]").text
-                firstname = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[3]").text
+                lastname = element.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[2]").text
+                firstname = element.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 i += 1
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
