@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+import re
 
 
 class ContactHelper:
@@ -21,7 +22,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         wd.find_elements_by_name("selected[]")[index].click()
-        self.select_contact_by_index(index)
+        self.edit_contact_by_index_home(index)
         self.input_data(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_home_page()
@@ -69,9 +70,15 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
 
-    def select_contact_by_index(self, index):
+    def edit_contact_by_index_home(self, index):
         wd = self.app.wd
+        self.open_home_page()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(index + 2) + "]/td[8]/a/img").click()
+
+    def edit_contact_by_index_view(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(index + 2) + "]/td[7]/a/img").click()
 
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
@@ -110,7 +117,7 @@ class ContactHelper:
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
-        self.select_contact_by_index(index)
+        self.edit_contact_by_index_home(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
@@ -118,4 +125,14 @@ class ContactHelper:
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone,
+                       workphone=workphone)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.edit_contact_by_index_view(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone)
