@@ -5,8 +5,8 @@ from random import randrange
 
 def test_edit_contact(app):
     contact = Contact(firstname="Dima", lastname="Filimonov", company="Dom",
-                      address="Ryazan", home_phone="001", mobile_phone="002",
-                      work_phone="003", email="dima@mail.ru", homepage="dima.ru",
+                      address="Ryazan", homephone="001", mobilephone="002",
+                      workphone="003", email="dima@mail.ru", homepage="dima.ru",
                       bday="3", bmonth="October", byear="2020")
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="John"))
