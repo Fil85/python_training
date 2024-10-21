@@ -6,8 +6,8 @@ def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
     contact = Contact(firstname="Ivan", lastname="Ivanov", company="GazProm",
                       address="Saint Petersburg", homephone="111111", mobilephone="222222",
-                      workphone="333333", email="ivan@mail.ru", homepage="ivan.ru",
-                      bday="14", bmonth="May", byear="1988")
+                      workphone="333333", email="ivan@mail.ru", email2="ivan2@mail.ru", email3="ivan3@mail.ru",
+                      homepage="ivan.ru", bday="14", bmonth="May", byear="1988")
     app.contact.create(contact)
     assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
