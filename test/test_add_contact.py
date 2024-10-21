@@ -6,11 +6,11 @@ import string
 
 
 def random_names(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10
+    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 def random_phones(prefix, maxlen):
-    symbols = string.digits
+    symbols = string.digits + string.punctuation
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
