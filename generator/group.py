@@ -1,5 +1,3 @@
-from xml.etree.ElementTree import indent
-
 from model.group import Group
 import random
 import string
