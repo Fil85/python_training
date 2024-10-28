@@ -10,7 +10,7 @@ import sys
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number_of_groups", "file"])
+    opts, args = getopt.getopt(sys.argv[2:], "n:f:", ["number_of_groups", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
