@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from tabnanny import check
-
 from model.group import Group
 import random
 
