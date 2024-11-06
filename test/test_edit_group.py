@@ -10,8 +10,8 @@ def test_edit_group_name(app, db, check_ui):
     old_groups = db.get_group_list()
     group = random.choice(old_groups)
     app.group.edit_group_by_id(group.id, group_new)
-    assert len(old_groups) == app.group.count()
     new_groups = db.get_group_list()
+    assert len(old_groups) == len(new_groups)
     old_groups[new_groups.index(group_new)] = group_new
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:

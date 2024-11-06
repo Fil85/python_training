@@ -13,8 +13,8 @@ def test_edit_contact(app, db, check_ui):
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     app.contact.edit_contact_by_id(contact.id, contact_new)
-    assert len(old_contacts) == app.contact.count()
     new_contacts = db.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
     old_contacts[new_contacts.index(contact_new)] = contact_new
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
     if check_ui:
