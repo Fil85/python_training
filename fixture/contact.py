@@ -90,8 +90,15 @@ class ContactHelper:
     def edit_contact_by_id_home(self, id):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(id + 2) + "]/td[8]/a/img").click()
-        # wd.find_element_by_css_selector("edit[value = '%s']" % id).click()
+        index = 0
+        # цикл нужен для определения ячейки таблицы, не смог придумать как это сделать напрямую через id
+        for row in wd.find_elements_by_name("entry"):
+            id_new = row.find_element_by_name("selected[]").get_attribute("value")
+            index += 1
+            if id_new == id:
+                index -= 1
+                break
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(index + 2) + "]/td[8]/a/img").click()
 
     def edit_contact_by_index_view(self, index):
         wd = self.app.wd
