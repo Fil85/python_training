@@ -1,5 +1,3 @@
-from audioop import reverse
-from datetime import datetime
 from pony.orm import *
 from model.group import Group
 from model.contact import Contact
@@ -22,7 +20,6 @@ class ORMFixture:
         id = PrimaryKey(int, column="id")
         firstname = Optional(str, column="firstname")
         lastname = Optional(str, column="lastname")
-        # deprecated = Optional(datetime, column="deprecated")
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy="True")
 
     def __init__(self, host, name, user, password):
@@ -41,7 +38,9 @@ class ORMFixture:
 
     def convert_contacts_to_model(self, contacts):
         def convert(contact):
-            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname)
+            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
+                           address=contact.address, homephone=contact.homephone, mobilephone=contact.mobilephone,
+                           workphone=contact.workphone, email=contact.email, email2=contact.email2, email3=contact.email3)
         return list(map(convert, contacts))
 
     @db_session
