@@ -1,7 +1,5 @@
 import re
 from random import randrange
-import random
-
 from model.contact import Contact
 
 
