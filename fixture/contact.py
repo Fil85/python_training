@@ -169,3 +169,17 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone)
+
+    def add_contact_to_group(self, id, index):
+        wd = self.app.wd
+        wd.find_element_by_id(id).click()
+        wd.find_element_by_name("to_group").click()
+        # Select(wd.find_element_by_name("to_group")).select_by_visible_text("namem")
+        print("//div[@id='content']/form[2]/div[4]/select/option['%i']" % index)
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[4]/select/option['%i']" % index).click()
+        wd.find_element_by_name("add").click()
+        self.return_home_page()
+
+
+    def delete_contact_from_group(self):
+        pass
