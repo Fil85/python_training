@@ -1,6 +1,5 @@
 from model.contact import Contact
 from model.group import Group
-import re
 import random
 
 
