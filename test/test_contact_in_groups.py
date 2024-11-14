@@ -37,7 +37,7 @@ def test_del_contact_from_group(app, db):
         contacts_all = db.get_contact_list()
         contact = random.choice(contacts_all)
         app.contact.add_contact_to_group(contact.id, group.id)
-    contacts = db.get_contact_list_in_our_group(group)
+        contacts = db.get_contact_list_in_our_group(group)
     contact_id = random.choice(contacts)
     app.contact.delete_contact_from_group(contact_id, group.id)
     assert contact_id not in db.get_contact_list_in_all_groups()
